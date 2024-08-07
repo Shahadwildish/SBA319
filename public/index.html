@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Movie Review Site</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header>
+    <h1>Movie Review Site</h1>
+    <nav>
+      <a href="#" id="show-register">Register</a>
+      <a href="#" id="show-login">Login</a>
+      <a href="#" id="show-movies">Movies</a>
+      <!-- Add this to your existing HTML file -->
+<button id="logout-button" class="hidden">Logout</button>
+
+    </nav>
+  </header>
+  <main>
+    <!-- Register Form -->
+    <section id="register-form" class="hidden">
+      <h2>Register</h2>
+      <form id="register">
+        <input type="text" id="reg-username" placeholder="Username" required>
+        <input type="email" id="reg-email" placeholder="Email" required>
+        <input type="password" id="reg-password" placeholder="Password" required>
+        <button type="submit">Register</button>
+      </form>
+    </section>
+
+    <!-- Login Form -->
+    <section id="login-form" class="hidden">
+      <h2>Login</h2>
+      <form id="login">
+        <input type="email" id="login-email" placeholder="Email" required>
+        <input type="password" id="login-password" placeholder="Password" required>
+        <button type="submit">Login</button>
+      </form>
+    </section>
+
+    <!-- Movie List -->
+    <section id="movie-list" class="hidden">
+      <h2>Movies</h2>
+      <div id="movie-filters">
+        <input type="text" id="filter-genre" placeholder="Genre">
+        <input type="number" id="filter-rating" placeholder="Rating">
+        <button id="filter-movies">Filter</button>
+      </div>
+      <div id="movies" class="movie-grid"></div>
+      <div id="pagination">
+        <button id="prev-page" disabled>Previous</button>
+        <span id="page-info"></span>
+        <button id="next-page">Next</button>
+      </div>
+    </section>
+  </main>
+  <script src="js/main.js"></script>
+  <!-- Add a section for comments -->
+<div id="movie-comments" class="hidden">
+    <h2>Comments</h2>
+    <div id="comments-list"></div>
+</div>
+
+</body>
+</html>
