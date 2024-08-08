@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Details</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="login.html" class="nav-link">Login</a>
+            <a href="register.html" class="nav-link">Register</a>
+        </div>
+    </nav>
+    <main id="movie-details">
+        <div class="container">
+            <h1 id="movie-title"></h1>
+            <img id="movie-poster" alt="Movie Poster">
+            <div class="movie-info">
+                <p id="movie-release-date"></p>
+                <p id="movie-rating"></p>
+                <p id="movie-plot"></p>
+            </div>
+            <h2>Comments</h2>
+            <div id="comments-list"></div>
+            <form id="comment-form">
+                <textarea id="comment-content" placeholder="Write your comment here..." required></textarea>
+                <button type="submit" class="btn">Post Comment</button>
+            </form>
+        </div>
+    </main>
+    <script src="movie.js"></script>
+</body>
+</html>

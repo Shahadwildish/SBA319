@@ -1,31 +1,25 @@
 const express = require('express');
 const router = express.Router();
-const Movie = require('./models/movie'); // Import your Movie model
+const Movie = require('../models/movie'); 
 const mongoose = require('mongoose');
-const Comment = require('./models/comment');
+const Comment = require('../models/comment');
 
 const app = express();
 app.use(express.json());
 
 
-app.get('/movies/:movieId/comments', async (req, res) => {
-    const movieId = req.params.movieId;
-
+router.get('/movies/:id/comments', async (req, res) => {
     try {
-        // Find the movie by ID and populate comments
-        const movie = await Movie.findById(movieId).populate('comments').exec();
+        const movieId = req.params.id;
 
-        if (!movie) {
-            return res.status(404).json({ message: 'Movie not found' });
-        }
-
-        // Send the list of comments
-        res.json(movie.comments);
+        const comments = await Comment.find({ movie: movieId });
+        res.json(comments);
     } catch (error) {
         console.error('Error fetching comments:', error);
         res.status(500).json({ message: 'Internal Server Error' });
     }
 });
+
 
 // Add a comment
 router.post('/movies/:id/comments', async (req, res) => {

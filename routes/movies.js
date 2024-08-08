@@ -2,14 +2,29 @@ const express = require('express');
 const router = express.Router();
 const Movie = require('../models/movie');
 const Comment = require('../models/comment');
+const app = express();
 
 // Fetch comments for a specific movie
-router.get('/:movieId/comments', async (req, res) => {
+app.get('/movies/:movieId/comments', async (req, res) => {
     try {
         const comments = await Comment.find({ movieId: req.params.movieId }).populate('userId', 'username');
         res.json(comments);
     } catch (err) {
         res.status(500).json({ message: 'Error fetching comments', error: err.message });
+    }
+});
+
+app.get('/movies/:id', async (req, res) => {
+    try {
+        const movieId = req.params.id;
+        const movie = await Movie.findById(movieId);
+        if (!movie) {
+            return res.status(404).json({ message: 'Movie not found' });
+        }
+        res.json(movie);
+    } catch (error) {
+        console.error('Error fetching movie details:', error);
+        res.status(500).json({ message: 'Internal Server Error' });
     }
 });
 
@@ -45,4 +60,4 @@ router.get('/', async (req, res) => {
     }
 });
 
-module.exports = router;
+ module.exports = router;
