@@ -48,7 +48,7 @@ app.get('/movies/:id', async (req, res) => {
 app.get('/movies/:id/comments', async (req, res) => {
     try {
         const movieId = req.params.id;
-        // Fetch comments associated with the movie ID
+        // Fetch comments for the movie ID
         const comments = await Comment.find({ movie_id: movieId });
         res.json(comments);
     } catch (error) {

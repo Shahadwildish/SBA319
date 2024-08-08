@@ -4,7 +4,7 @@ const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 const config = require('../config');
 
-// Route to handle logout
+
 router.post('/auth/logout', (req, res) => {
   req.session.destroy(err => {
     if (err) {
@@ -16,7 +16,6 @@ router.post('/auth/logout', (req, res) => {
 
 module.exports = router;
 
-// Register
 router.post('/register', async (req, res) => {
     const { username, email, password } = req.body;
     try {
@@ -28,7 +27,6 @@ router.post('/register', async (req, res) => {
     }
 });
 
-// Login
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
     try {

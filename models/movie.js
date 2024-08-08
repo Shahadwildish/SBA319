@@ -6,7 +6,7 @@ const movieSchema = new mongoose.Schema({
   genre: { type: String, required: true },
   rating: { type: Number, required: true },
   description: { type: String },
-  poster: { type: String }  // Field for movie poster URL
+  poster: { type: String } 
 });
 
 module.exports = mongoose.model('Movie', movieSchema);

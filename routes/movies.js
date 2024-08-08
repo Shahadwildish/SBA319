@@ -4,7 +4,7 @@ const Movie = require('../models/movie');
 const Comment = require('../models/comment');
 const app = express();
 
-// Fetch comments for a specific movie
+// fetch comments for a specific movie
 app.get('/movies/:movieId/comments', async (req, res) => {
     try {
         const comments = await Comment.find({ movieId: req.params.movieId }).populate('userId', 'username');
@@ -35,7 +35,7 @@ router.get('/', async (req, res) => {
         const query = {};
 
         if (genre) {
-            query.genres = { $in: [genre] }; // Check if the genre is in the genres array
+            query.genres = { $in: [genre] }; // Check if the genre is in the genres array... bbut the search is still case sensitive... why???
         }
         if (rating) query.rating = { $gte: rating };
 

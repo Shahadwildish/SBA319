@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const commentForm = document.getElementById('comment-form');
     const commentContent = document.getElementById('comment-content');
 
-    // Static fallback image URL
+    // some posters don't load properly so I'm using an alternate picture 
     const fallbackPoster = 'https://images.pexels.com/photos/1674303/pexels-photo-1674303.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2';
 
     async function fetchComments() {
@@ -64,5 +64,29 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     document.addEventListener('DOMContentLoaded', fetchMovieDetails);
+    commentForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const content = commentContent.value;
+
+        try {
+            const response = await fetch('/comments', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    name: 'Tester',
+                    email: 'TESEmail@testdomain.com',
+                    movie_id: movieId,
+                    text: commentContent
+                })
+            });
+
+            if (!response.ok) throw new Error(`Network response was not ok: ${response.statusText}`);
+            console.log(response);
+            commentContent.value = '';
+            await fetchComments();
+        } catch (error) {
+            console.error('Error posting comment:', error);
+        }
+    });
     fetchMovieDetails();
 });

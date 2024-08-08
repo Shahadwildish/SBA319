@@ -1,10 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
     const limit = 10;
     let currentPage = 1;
-    let selectedMovieId = null; // Variable to store selected movie ID
+    let selectedMovieId = null; // use this for comments viewing?
 
-
-    // Elements for form visibility
+    
     const showRegister = document.getElementById('show-register');
     const showLogin = document.getElementById('show-login');
     const showMovies = document.getElementById('show-movies');
@@ -15,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const movieComments = document.getElementById('movie-comments');
     const commentsList = document.getElementById('comments-list');
 
-    // Static fallback image URL
+    
     const fallbackPoster = 'https://images.pexels.com/photos/1674303/pexels-photo-1674303.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2';
 
     // Show or hide forms and movie list
@@ -35,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
         registerForm.classList.add('hidden');
         loginForm.classList.add('hidden');
         movieList.classList.remove('hidden');
-        fetchMovies(currentPage); // Fetch movies when showing movie list
+        fetchMovies(currentPage); // trigger function for current page
     });
     function renderMovies(movies) {
         const moviesContainer = document.getElementById('movies');
@@ -124,23 +123,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 const link = document.createElement('a');
                 link.href = `/movie.html?id=${movie._id}`;
                 link.className = 'movie-link';
-                // Create poster image
+                 
+                // movie poster image
                 const img = document.createElement('img');
-                img.src = movie.poster ? movie.poster : fallbackPoster;  // Use fallback image if no poster URL
+                img.src = movie.poster ? movie.poster : fallbackPoster; 
                 img.alt = movie.title;
 
-                // Create movie details
                 const h3 = document.createElement('h3');
                 h3.textContent = movie.title;
 
                 const p = document.createElement('p');
                 p.textContent = `Release Date: ${new Date(movie.released).toLocaleDateString()} | Rating: ${movie.imdb.rating}`;
 
-                // div.appendChild(img);
-                // div.appendChild(h3);
-                // div.appendChild(p);
-
-                // moviesContainer.appendChild(div);
                 link.appendChild(img);
                 link.appendChild(h3);
                 link.appendChild(p);
@@ -149,7 +143,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 moviesContainer.appendChild(div);
             });
 
-            // Update pagination controls
             const prevPageButton = document.getElementById('prev-page');
             const nextPageButton = document.getElementById('next-page');
             const pageInfo = document.getElementById('page-info');
@@ -178,7 +171,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // Register form submission
     const register = document.getElementById('register');
     register.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -199,6 +191,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Initialize movie list
     fetchMovies(currentPage);
+    app.post('/comments', async (req, res) => {
+        try {
+            const { name, email, movie_id, text } = req.body;
+            const newComment = new Comment({ name, email, movie_id, text });
+            await newComment.save();
+            res.status(201).json({ message: 'Comment posted successfully!' });
+        } catch (error) {
+            console.error('Error posting comment:', error);
+            res.status(500).json({ message: 'Failed to post comment' });
+        }
+    });
+
 });

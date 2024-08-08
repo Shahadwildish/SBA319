@@ -8,7 +8,7 @@ const app = express();
 app.use(express.json());
 
 
-router.get('/movies/:id/comments', async (req, res) => {
+router.get('/comments', async (req, res) => {
     try {
         const movieId = req.params.id;
 
@@ -26,7 +26,7 @@ router.post('/movies/:id/comments', async (req, res) => {
     const { text } = req.body;
     try {
         const comment = new Comment({
-            user_id: req.user.id, // You'll need to add authentication middleware to get req.user
+            user_id: req.user.id,
             movie_id: req.params.id,
             text
         });
